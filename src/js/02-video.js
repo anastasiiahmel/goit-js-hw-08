@@ -7,18 +7,17 @@ const KEY_CURRENT_TIME = 'videoplayer-current-time';
 player.on('timeupdate', throttle(timeUpdate, 1500));
 
 function timeUpdate(data) {
-  console.log(Math.round(data.seconds));
-  localStorage.setItem(KEY_CURRENT_TIME, data.seconds);
+  console.log(Number.parseInt(data.seconds));
+  localStorage.setItem(KEY_CURRENT_TIME, Number.parseInt(data.seconds));
 }
 
-const currentTime = localStorage.getItem('KEY_CURRENT_TIME');
+const currentTime = localStorage.getItem(KEY_CURRENT_TIME, 'timeupdate');
 
 player.setCurrentTime(currentTime).catch(function (error) {
   switch (error.time) {
     case 'RangeError':
       time = 0;
       console.log('timeError');
-
       break;
 
     default:
